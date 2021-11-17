@@ -60,6 +60,13 @@ wsc_trim <- st_crop(st_geometry(transform_bc_albers(wsc
         xmin = x_min, xmax = x_max,
         ymin = y_min, ymax = y_max)
 
+# Station numbers for stations within the Elk Watershed
+stations <- c("08NK022", "08NK018", "08NK016", "08NK002", "08NK030")
+
+wsc_s <- hy_stations(prov_terr_state_loc = "BC") %>%
+  dplyr::filter(HYD_STATUS == "ACTIVE") %>%
+  dplyr::filter(STATION_NUMBER %in% stations)
+
 # WSC drainages from BC maps
 #wsc_d <- st_crs(st_geometry(transform_bc_albers(wsc_drainages()[wsc_drainages()$SUB_SUB_DRAINAGE_AREA_NAME == "Elk",])))
 wsc_d <- wsc_drainages()[wsc_drainages()$SUB_SUB_DRAINAGE_AREA_NAME == "Elk",]
